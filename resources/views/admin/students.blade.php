@@ -2,12 +2,15 @@
 @section('students')
 <div class="container">
      <div class="row text-center">
+
         <table id="example" class="table table-striped table-bordered" style="width:100%">
             <thead>
-                <tr><th>No</th>
+
+                <tr>
+                    <th>No</th>
                     <th>Name</th>
                     <th>RegNo</th>
-                    <th>Department</th>
+                    <th>Branch</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th></th>
@@ -21,17 +24,36 @@
                     <td>{{$student->name}}</td>
                     <td>{{$student->regno}}</td>
                     <td>{{$student->branch}}</td>
-                    <td>{{$student->email}}</td> 
+                    <td>{{$student->email}}</td>
                     <td>{{$student->phone}}</td>
-                    <td><button class="btn btn-success"><a href="" class="text-decoration-none text-light">Edit</a></button></td>
-                    <td><button class="btn btn-danger"><a href="" class="text-decoration-none text-light">Delete</a></button></td>
+                    <td>
+                        <td>
+                            <form action="{{route('students-list/edit/{id}',$student->id)}}" method="POST">
+                                @method('get')
+                                @csrf
+                                <button class="btn btn-success" onclick="handleDelete()" type="submit">Edit</button>
+                            </form>
+                        </td>
+
+                    </td>
+
+                    <td>
+                        <form action="{{route('students-list/delete/{id}',$student->id)}}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-danger" onclick="handleDelete();">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
-            
+
         </table>
+
      </div>
- </div> 
+ </div>
 
 
 @endsection

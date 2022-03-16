@@ -9,3 +9,15 @@ jQuery(document).ready(function(){
        
     })
 })
+
+function handleDelete(){
+    var conf = confirm('Are you sure to wanto delete?');
+    if(conf){
+        alert("Successfully Deleted");
+    }
+    else{
+        location.reload();
+    }
+
+
+}

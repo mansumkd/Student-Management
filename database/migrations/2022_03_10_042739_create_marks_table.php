@@ -15,10 +15,19 @@ class CreateMarksTable extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
-            $table -> string('exam_code');
-            $table ->string('regno');
-            $table -> string('semester');
-            $table ->date('exam_date');
+            $table->string('semester');
+            $table->string('branch');
+            $table->string('regno');
+            $table->string('exam');
+            $table->integer('mark1');
+            $table->integer('mark2');
+            $table->integer('mark3');
+            $table->integer('mark4');
+            $table->integer('mark5')->nullable();
+            $table->integer('mark6')->nullable();
+            $table->integer('mark7')->nullable();
+            $table->integer('mark8')->nullable();
+            $table->integer('mark9')->nullable();
             $table->timestamps();
         });
     }

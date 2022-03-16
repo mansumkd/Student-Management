@@ -16,6 +16,9 @@ class NotificationController extends Controller
        else if(auth()->user()->role === 'admin'){
         return view('admin.notification')->with(compact('notifications'));
        }
+       else if(auth()->user()->role === 'parent'){
+        return view('parent.notification')->with(compact('notifications'));
+       }
    }
 
    public function addPage(){

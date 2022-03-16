@@ -2,27 +2,97 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Exam;
+use App\Models\Mark;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StaffController extends Controller
 {
-  public function index(){
-      
-    $staffs = User::where('role','staff')->get();
-      return view('admin.staffs')->with(compact('staffs'));
-  }
- public function marksUpdatePage(){
-   return view('staff.updatemarks');
- }
+  public function index()
+  {
 
-  public function delete($id){
-    $suc =   User::where('id',$id)->delete();
-    if($suc){
-      return redirect()->intended('/staffs-list');
+    $staffs = User::where('role', 'staff')->get();
+    return view('admin.staffs')->with(compact('staffs'));
+  }
+  public function marksUpdatePagelevelOne()
+  {
+    $branches = Branch::all();
+    return view('staff.updatemarkslevelone')->with(compact('branches'));
+  }
+  public function marksUpdatePagelevelTwo(Request $request)
+  {
+
+    $semester = $request->input('semester');
+    $branch = $request->input('branch');
+    $subjects = Subject::where('semester', $semester)->where('branch', $branch)->get();
+    $exams = Exam::where('semester', $semester)->where('branch', $branch)->get();
+
+    return view('staff.updatemarksleveltwo', ['branch' => $branch, 'semester' => $semester])->with(compact('subjects', 'exams'));
+  }
+  public function updateMarksfinal(Request $request)
+  {
+    $data = $request->all();
+
+    $mark = new Mark();
+    $mark->semester = $data['semester'];
+    $mark->branch = $data['branch'];
+    $mark->regno = $data['regno'];
+    $mark->exam = $data['semester'];
+    $mark->mark1 = $data['mark1'];
+    $mark->mark2 = $data['mark2'];
+    $mark->mark3 = $data['mark3'];
+    $mark->mark4 = $data['mark4'];
+    $mark->mark5 = $data['mark5'];
+    $mark->mark6 = $data['mark6'];
+
+    $success = $mark->save();
+    if ($success) {
+      dump('Data Update success');
+    } else {
+      dump('Error');
     }
-    else{ 
+  }
+
+  public function show($id)
+  {
+    $staff = User::findOrFail($id);
+    return view('admin.staffedit')->with(compact('staff'));
+  }
+
+  public function update(Request $request, $id)
+  {
+    $staff = User::findOrFail($id);
+    $staff->name = $request->input('name');
+    $staff->regno = $request->input('regno');
+    $staff->branch = $request->input('branch');
+    $staff->email = $request->input('email');
+    $staff->phone = $request->input('phone');
+    $update = $staff->update();
+
+    if ($update) {
+      return redirect()->intended('/staffs-list')->with(compact('update'));
+    } else {
       dump("Error");
     }
+  }
+
+  public function delete($id)
+  {
+    $suc =   User::where('id', $id)->delete();
+    if ($suc) {
+      return redirect()->intended('/staffs-list');
+    } else {
+      dump("Error");
+    }
+  }
+
+  public function studentindex()
+  {
+    $students = User::where('role', 'student')->get();
+    return view('staff.liststudents')->with(compact('students'));
   }
 }

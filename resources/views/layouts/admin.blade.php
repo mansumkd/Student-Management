@@ -119,6 +119,9 @@
                 @yield('notification')
                 @yield('add-notification')
                 @yield('add-exam')
+                @yield('studentedit')
+                @yield('staffedit')
+                @yield('parentedit')
                 
             </div>
 
