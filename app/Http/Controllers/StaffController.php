@@ -36,18 +36,21 @@ class StaffController extends Controller
   public function updateMarksfinal(Request $request)
   {
     $data = $request->all();
-
+    $count = count($data);
+    dump($data);
+    dump($count-5);
     $mark = new Mark();
     $mark->semester = $data['semester'];
     $mark->branch = $data['branch'];
     $mark->regno = $data['regno'];
-    $mark->exam = $data['semester'];
+    $mark->exam = $data['exam'];
     $mark->mark1 = $data['mark1'];
     $mark->mark2 = $data['mark2'];
     $mark->mark3 = $data['mark3'];
     $mark->mark4 = $data['mark4'];
     $mark->mark5 = $data['mark5'];
     $mark->mark6 = $data['mark6'];
+   
 
     $success = $mark->save();
     if ($success) {

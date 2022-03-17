@@ -50,6 +50,9 @@ Route::post('/listassignmentfirst',[AssignmentController::class,'listassignmentp
 Route::get('/list-assignment/{id}',[AssignmentController::class,'listassignmentDownload'])->name('/list-assignment{id}')->middleware('isStudent');
 Route::post('/store-assignment/{id}',[AssignmentController::class,'submitStore'])->name('store-assignment/{id}')->middleware('isStudent');
 
+Route::get('/upload-resume',[StudentController::class,'resumeUploadPage'])->name('upload-resume')->middleware('isStudent');
+Route::post('/upload-resume',[StudentController::class,'resumeUploadPost'])->name('upload-resume')->middleware('isStudent');
+
 
 //Staff Routes here
 Route::get('/staffs-list',[StaffController::class,'index'])->name('staffs-list')->middleware('isAdmin');
@@ -80,4 +83,8 @@ Route::delete('/parents-list/delete/{id}',[ParentController::class,'delete'])->n
 
 Route::get('/firstassignmentlist',[AssignmentController::class,'listassignmentshow'])->name('firstassignmentlist')->middleware('isParent');
 Route::post('/firstassignmentlist',[AssignmentController::class,'listassignmentshowPost'])->name('firstassignmentlist')->middleware('isParent');
-Route::get('/listassignment/{id}',[AssignmentController::class,'listDownload'])->name('/listassignment{id}')->middleware('isParent');
+Route::get('/listassignment/{id}',[AssignmentController::class,'listDownload'])->name('/listassignment{id}')->middleware('isParent');\
+
+//QR code 
+
+Route::get('/generate-qr',[StudentController::class,'getQR'])->name('generate-qr')->middleware('isStudent');

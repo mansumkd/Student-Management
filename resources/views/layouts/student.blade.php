@@ -67,7 +67,15 @@
 
                         </li>
                         <li>
-                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                            <a href="{{ route('upload-resume') }}" class="nav-link px-0 align-middle ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-upload" viewBox="0 0 16 16">
+                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                  </svg><span class="ms-1 d-none d-sm-inline"><b>Upload Resume</b></span></a>
+
+                        </li>
+                        <li>
+                            <a href="{{route('generate-qr')}}"  class="nav-link px-0 align-middle ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-qr-code text-light" viewBox="0 0 16 16">
                                     <path d="M2 2h2v2H2V2Z"/>
                                     <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/>
@@ -104,6 +112,8 @@
                 @yield('notification')
                 @yield('listassignmentfirst')
                 @yield('list-assignment')
+                @yield('upload-resume')
+                @yield('qr-code')
 
             </div>
         </div>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resume;
 use App\Models\User;
+use BaconQrCode\Encoder\QrCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
 
 class StudentController extends Controller
 {
@@ -53,5 +57,43 @@ class StudentController extends Controller
         {
           dump("Error");
         }
+    }
+
+    public function resumeUploadPage()
+    {
+        return view('student.resume');
+    }
+
+
+    public function resumeUploadPost(Request $request)
+    {
+
+        $validatedData = $request->validate(['file' => 'required|mimes:csv,txt,xlx,xls,pdf,doc|max:2048',]);
+
+           $name = $request->file('file')->getClientOriginalName();
+
+           $path = $request->file('file')->store('public/Resume/');
+
+                $save = new Resume();
+                $save->studentId = auth()->user()->id;
+                $save->name = $name;
+                $save->path = $path;
+                $success = $save->save();
+        if($success)
+        {
+            $message = 'successfully updated';
+            return redirect()->back()->with('message',$message);
+        }
+        else
+        {
+            return "error";
+        }
+    }
+
+    public function getQR(){
+        $id = Auth::id();
+        $student = User::findOrFail($id);
+        return view('student.qrCode',['student' => $student]);
+
     }
 }

@@ -139,7 +139,7 @@ class AssignmentController extends Controller
         $submitassignment->branch = $assignment->branch;
         $submitassignment->subject =$assignment->subject;
         $submitassignment->question = $assignment->question;
-        $validatedData = $request->validate(['file' => 'required|mimes:csv,txt,xlx,xls,pdf,doc|max:2048']);
+        $request->validate(['file' => 'required|mimes:csv,txt,xlx,xls,pdf,doc,docx|max:2048']);
         $name = $request->file('file')->getClientOriginalName();
         $path = $request->file('file')->store('public/SubmitAssignment/');
         $submitassignment->name = $name;
@@ -180,7 +180,7 @@ class AssignmentController extends Controller
     {
         $file=SubmitAssignment::where('id',$id)->first();
         $path = $file->path;
-        $filePath =storage_path('app/'.$path);
+        $filePath =public_path('app/'.$path);
         return response()->download($filePath);
 
     }
