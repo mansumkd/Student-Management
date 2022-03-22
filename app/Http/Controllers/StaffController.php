@@ -47,7 +47,7 @@ class StaffController extends Controller
     $mark->mark4 = $data['mark4'];
     $mark->mark5 = $data['mark5'];
     $mark->mark6 = $data['mark6'];
-   
+
 
     $success = $mark->save();
     if ($success) {
@@ -95,4 +95,43 @@ class StaffController extends Controller
     $students = User::where('role', 'student')->get();
     return view('staff.liststudents')->with(compact('students'));
   }
+
+
+  public function attendanceGet()
+    {
+        $branches = Branch::get();
+        //$subjects = Subject::get();
+        return view('staff.firstattendance')->with(compact('branches'));
+    }
+
+    public function attendancePost(Request $request){
+        $semester = $request->input('semester');
+        $branch = $request->input('branch');
+
+        $registers = Mark::where('semester', $semester)->where('branch', $branch)->get();
+        return view('staff.secondattendance',['semester'=>$semester,'branch'=> $branch])->with(compact('registers'));
+    }
+
+    public function storeattendance(Request $request)
+    {
+        $attendance = new Attendance();
+        $attendance->semester = $request->input('semester');
+        $attendance->branch = $request->input('branch');
+        $attendance->subject = $request->input('date');
+        $attendance->exam = $request->input('regno');
+        $attendance->exam = $request->input('status');
+
+        $success = $attendance->save();
+        if($success)
+        {
+            $message = 'successfully updated';
+            return redirect()->intended('./firstattendance')->with(compact('message'));
+        }
+
+        else
+        {
+            return "error";
+        }
+    }
+
 }

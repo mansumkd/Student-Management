@@ -58,6 +58,13 @@ Route::get('/upload-resume',[StudentController::class,'resumeUploadPage'])->name
 Route::post('/upload-resume',[StudentController::class,'resumeUploadPost'])->name('upload-resume')->middleware('isStudent');
 
 
+Route::get('/list-marks',[StudentController::class,'listmarksget'])->name('list-marks');
+Route::post('/list-marks',[StudentController::class,'listmarksstore'])->name('list-marks');
+
+
+Route::get('/list-attendance',[StudentController::class,'listattendanceGet'])->name('list-attendance');
+Route::post('/list-attendance',[StudentController::class,'listattendanceStore'])->name('list-attendance');
+
 //Staff Routes here
 Route::get('/staffs-list',[StaffController::class,'index'])->name('staffs-list')->middleware('isAdmin');
 Route::get('/staffs-list/edit/{id}',[StaffController::class,'show'])->name('staffs-list/edit/{id}')->middleware('isAdmin');
@@ -76,6 +83,12 @@ Route::get('/listassignments/{id}',[AssignmentController::class,'getDownload'])-
 Route::get('/list-submitassignmentfirst',[AssignmentController::class,'submitShow'])->name('list-submitassignmentfirst')->middleware('isStaff');
 Route::post('/list-submitassignmentfirst',[AssignmentController::class,'submitShowPost'])->name('list-submitassignmentfirst')->middleware('isStaff');
 Route::get('/list-submitassignment/{id}',[AssignmentController::class,'getSubmit'])->name('/list-submitassignment{id}')->middleware('isStaff');
+
+Route::get('/add-attendance',[StaffController::class,'attendanceGet'])->name('add-attendance')->middleware('isStaff');
+Route::post('/add-attendance',[StaffController::class,'attendancePost'])->name('add-attendance')->middleware('isStaff');
+Route::post('/store-attendance',[StaffController::class,'storeattendance'])->name('store-attendance')->middleware('isStaff');
+
+
 
 //parent Routes
 Route::get('/parents-list',[ParentController::class,'index'])->name('parents-list')->middleware('isAdmin');

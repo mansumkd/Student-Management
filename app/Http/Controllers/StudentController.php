@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Branch;
 use App\Models\Exam;
 use App\Models\Mark;
@@ -122,15 +123,63 @@ class StudentController extends Controller
     }
 
     public function showMarkpost(Request $request,$id)
-    {   
+    {
         $semester = $request->input('semester');
         $branch = $request->input('branch');
         $subjects = Subject::where('semester',$semester)->where('branch',$branch)->get();
         $student = User::where('id',$id)->first();
-        $regno = $student->regno; 
+        $regno = $student->regno;
         $marks=Mark::where('semester',$semester)->where('branch',$branch)->where('regno', $regno)->get();
         return view('student.qr-showMark',['semester'=>$semester,'branch'=>$branch,'student'=>$student])->with(compact('subjects','marks'));
     }
+
+
+             // list marks to students and parents
+
+    public function listmarksget()
+    {
+        $branches = Branch::get();
+         return view('student.listmarkfirst')->with(compact('branches'));
+    }
+
+    public function listmarksstore(Request $request)
+    {
+        $semester = $request->input('semester');
+        $branch = $request->input('branch');
+        $rnum=auth()->user()->regno;
+        $role =auth()->user()->role;
+        $subjects = Subject::where('semester',$semester)->where('branch',$branch)->get();
+        $marks = Mark::where('semester',$semester)->where('branch',$branch)->where('regno',$rnum)->get();
+        if($role == 'student' || $role == 'parent'){
+        return view('student.listmarks',['semester'=>$semester,'branch'=>$branch])->with(compact('subjects','marks'));
+        }
+        else {
+            return redirect()->back();
+        }
+    }
+
+     // list attendance to students and parents
+
+     public function listattendanceGet()
+     {
+         $branches = Branch::get();
+          return view('student.listattendancefirst')->with(compact('branches'));
+     }
+     public function listattendanceStore(Request $request)
+     {
+         $semester = $request->input('semester');
+         $branch = $request->input('branch');
+         $rnum=auth()->user()->regno;
+         $role =auth()->user()->role;
+
+         $attendances = Attendance::where('semester',$semester)->where('branch',$branch)->where('regno',$rnum)->get();
+         if($role == 'student' || $role == 'parent'){
+         return view('student.listattendance',['semester'=>$semester,'branch'=>$branch])->with(compact('attendances'));
+         }
+         else {
+             return redirect()->back();
+         }
+     }
 
 }
 
