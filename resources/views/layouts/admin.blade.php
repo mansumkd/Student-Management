@@ -11,15 +11,15 @@
      <script src="{{ asset('js/register.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  
-  
+
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
-  
+
 </head>
 
 <body>
@@ -65,8 +65,8 @@
                                     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
                                   </svg></i> <span class="ms-1 d-none d-sm-inline"><b>Parents</b></span></a>
                         </li>
-                        
-                        
+
+
                         <li>
                             <a href="{{ route('add-exam')}}" class="nav-link px-0 align-middle {{(\Request::route()->getName() == 'add-exam') ? 'active' : '' }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus text-light" viewBox="0 0 16 16">
@@ -85,8 +85,16 @@
 
                         </li>
 
+                        <li>
+                            <a href="{{ route('add-subjects')}}" class="nav-link px-0 align-middle {{(\Request::route()->getName() == 'add-subjects') ? 'active' : '' }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-file-plus" viewBox="0 0 16 16">
+                                    <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z"/>
+                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                                </svg>
+                                <span class="ms-1 d-none d-sm-inline"><b>Add Subjects</b></span>
+                            </a>
 
-
+                        </li>
 
                     </ul>
                     <hr>
@@ -96,7 +104,7 @@
                             <span class="d-none d-sm-inline mx-1">{{Auth::user()->name}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark bg-dark text-small shadow">
-                 
+
                             <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li>
@@ -119,13 +127,14 @@
                 @yield('notification')
                 @yield('add-notification')
                 @yield('add-exam')
+                @yield('add-subjects')
                 @yield('studentedit')
                 @yield('staffedit')
                 @yield('parentedit')
-                
+
             </div>
 
-           
+
         </div>
 
 

@@ -38,6 +38,10 @@ Route::post('/add-notifications',[NotificationController::class,'store'])->name(
 Route::get('add-exam',[ExamController::class,'addPage'])->name('add-exam')->middleware('isAdmin');
 Route::post('add-exam',[ExamController::class,'store'])->name('add-exam')->middleware('isAdmin');
 
+
+Route::get('/add-subjects',[CreateUserController::class,'addSubjectget'])->name('add-subjects')->middleware('isAdmin');
+Route::post('/add-subjects',[CreateUserController::class,'addSubjectPost'])->name('add-subjects')->middleware('isAdmin');
+
 //Student Routes here
 Route::get('/students-list',[StudentController::class,'index'])->name('students-list')->middleware('isAdmin');
 Route::get('/students-list/edit/{id}',[StudentController::class,'show'])->name('students-list/edit/{id}')->middleware('isAdmin');
@@ -83,8 +87,19 @@ Route::delete('/parents-list/delete/{id}',[ParentController::class,'delete'])->n
 
 Route::get('/firstassignmentlist',[AssignmentController::class,'listassignmentshow'])->name('firstassignmentlist')->middleware('isParent');
 Route::post('/firstassignmentlist',[AssignmentController::class,'listassignmentshowPost'])->name('firstassignmentlist')->middleware('isParent');
-Route::get('/listassignment/{id}',[AssignmentController::class,'listDownload'])->name('/listassignment{id}')->middleware('isParent');\
+Route::get('/listassignment/{id}',[AssignmentController::class,'listDownload'])->name('/listassignment{id}')->middleware('isParent');
 
-//QR code 
+//QR code
 
 Route::get('/generate-qr',[StudentController::class,'getQR'])->name('generate-qr')->middleware('isStudent');
+
+Route::get('/qrform/{id}',[StudentController::class,'qrform'])->name('qrForm');
+
+Route::get('/resume-download/{id}',[StudentController::class,'resumeDownload'])->name('/resume-download/{id}');
+
+Route::get('/show-markfirst',[StudentController::class,'showMarkfirst'])->name('/show-markfirst');
+Route::post('/show-markfirst',[StudentController::class,'showMarkpost'])->name('/show-markfirst');
+Route::get('/show-mark',[StudentController::class,'showMark'])->name('/show-mark');
+
+
+

@@ -115,6 +115,8 @@
                 @yield('upload-resume')
                 @yield('qr-code')
 
+                @yield('qr-showmark')
+
             </div>
         </div>
     </div>
