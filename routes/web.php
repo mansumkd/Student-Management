@@ -38,6 +38,9 @@ Route::post('/add-notifications',[NotificationController::class,'store'])->name(
 Route::get('add-exam',[ExamController::class,'addPage'])->name('add-exam')->middleware('isAdmin');
 Route::post('add-exam',[ExamController::class,'store'])->name('add-exam')->middleware('isAdmin');
 
+Route::get('/add-subjects',[CreateUserController::class,'addSubjectget'])->name('add-subjects')->middleware('isAdmin');
+Route::post('/add-subjects',[CreateUserController::class,'addSubjectPost'])->name('add-subjects')->middleware('isAdmin');
+
 //Student Routes here
 Route::get('/students-list',[StudentController::class,'index'])->name('students-list')->middleware('isAdmin');
 Route::get('/students-list/edit/{id}',[StudentController::class,'show'])->name('students-list/edit/{id}')->middleware('isAdmin');
@@ -51,24 +54,41 @@ Route::get('/list-assignment/{id}',[AssignmentController::class,'listassignmentD
 Route::post('/store-assignment/{id}',[AssignmentController::class,'submitStore'])->name('store-assignment/{id}')->middleware('isStudent');
 
 
+Route::get('/list-marks',[StudentController::class,'listmarksget'])->name('list-marks');
+Route::post('/list-marks',[StudentController::class,'listmarksstore'])->name('list-marks');
+
+Route::get('/list-attendance',[StudentController::class,'listattendanceGet'])->name('list-attendance');
+Route::post('/list-attendance',[StudentController::class,'listattendanceStore'])->name('list-attendance');
+
 //Staff Routes here
 Route::get('/staffs-list',[StaffController::class,'index'])->name('staffs-list')->middleware('isAdmin');
 Route::get('/staffs-list/edit/{id}',[StaffController::class,'show'])->name('staffs-list/edit/{id}')->middleware('isAdmin');
 Route::post('/staffs-list/edit/{id}',[StaffController::class,'update'])->name('staffs-list/edit/{id}')->middleware('isAdmin');
 Route::delete('/staffs-list/delete/{id}',[StaffController::class,'delete'])->name('staffs-list/delete/{id}')->middleware('isAdmin');
+
 Route::get('/update-marks-level-one',[StaffController::class,'marksUpdatePageLevelOne'])->name('update-marks-level-one')->middleware('isStaff');
 Route::post('/update-marks-level-one',[StaffController::class,'marksUpdatePageLevelTwo'])->name('update-marks-level-one')->middleware('isStaff');
 Route::post('/update-marks',[StaffController::class,'updateMarksFinal'])->name('update-marks')->middleware('isStaff');
 
 Route::get('/add-assignmentfirst',[AssignmentController::class,'firstAssignmentPage'])->name('add-assignmentfirst')->middleware('isStaff');
 Route::post('/add-assignmentfirst',[AssignmentController::class,'firstAssignmentPost'])->name('add-assignmentfirst')->middleware('isStaff');
+
 Route::post('/add-assignment',[AssignmentController::class,'store'])->name('add-assignment')->middleware('isStaff');
 Route::get('/listassignments',[AssignmentController::class,'showlist'])->name('listassignments')->middleware('isStaff');
+
 Route::delete('/listassignments/delete/{id}',[AssignmentController::class,'delete'])->name('listassignments/delete/{id}')->middleware('isStaff');
 Route::get('/listassignments/{id}',[AssignmentController::class,'getDownload'])->name('/listassignments{id}')->middleware('isStaff');
+
 Route::get('/list-submitassignmentfirst',[AssignmentController::class,'submitShow'])->name('list-submitassignmentfirst')->middleware('isStaff');
 Route::post('/list-submitassignmentfirst',[AssignmentController::class,'submitShowPost'])->name('list-submitassignmentfirst')->middleware('isStaff');
+
 Route::get('/list-submitassignment/{id}',[AssignmentController::class,'getSubmit'])->name('/list-submitassignment{id}')->middleware('isStaff');
+
+Route::get('/add-attendance',[StaffController::class,'attendanceGet'])->name('add-attendance')->middleware('isStaff');
+Route::post('/add-attendance',[StaffController::class,'attendancePost'])->name('add-attendance')->middleware('isStaff');
+Route::post('/store-attendance',[StaffController::class,'storeattendance'])->name('store-attendance')->middleware('isStaff');
+
+
 
 //parent Routes
 Route::get('/parents-list',[ParentController::class,'index'])->name('parents-list')->middleware('isAdmin');
@@ -81,3 +101,6 @@ Route::delete('/parents-list/delete/{id}',[ParentController::class,'delete'])->n
 Route::get('/firstassignmentlist',[AssignmentController::class,'listassignmentshow'])->name('firstassignmentlist')->middleware('isParent');
 Route::post('/firstassignmentlist',[AssignmentController::class,'listassignmentshowPost'])->name('firstassignmentlist')->middleware('isParent');
 Route::get('/listassignment/{id}',[AssignmentController::class,'listDownload'])->name('/listassignment{id}')->middleware('isParent');
+
+
+

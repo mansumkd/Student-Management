@@ -2,11 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
+use App\Models\Branch;
+use App\Models\Mark;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+   // list marks to students and parents
+
+    public function listmarksget()
+    {
+        $branches = Branch::get();
+         return view('student.listmarkfirst')->with(compact('branches'));
+    }
+
+    public function listmarksstore(Request $request)
+    {
+        $semester = $request->input('semester');
+        $branch = $request->input('branch');
+        $rnum=auth()->user()->regno;
+        $role =auth()->user()->role;
+        $subjects = Subject::where('semester',$semester)->where('branch',$branch)->get();
+        $marks = Mark::where('semester',$semester)->where('branch',$branch)->where('regno',$rnum)->get();
+        if($role == 'student' || $role == 'parent'){
+        return view('student.listmarks',['semester'=>$semester,'branch'=>$branch])->with(compact('subjects','marks'));
+        }
+        else {
+            return redirect()->back();
+        }
+    }
+
+            // list attendance to students and parents
+
+    public function listattendanceGet()
+    {
+        $branches = Branch::get();
+         return view('student.listattendancefirst')->with(compact('branches'));
+    }
+    public function listattendanceStore(Request $request)
+    {
+        $semester = $request->input('semester');
+        $branch = $request->input('branch');
+        $rnum=auth()->user()->regno;
+        $role =auth()->user()->role;
+
+        $attendances = Attendance::where('semester',$semester)->where('branch',$branch)->where('regno',$rnum)->get();
+        if($role == 'student' || $role == 'parent'){
+        return view('student.listattendance',['semester'=>$semester,'branch'=>$branch])->with(compact('attendances'));
+        }
+        else {
+            return redirect()->back();
+        }
+    }
+
+
     public function index(){
 
         $students = User::where('role','student')->get();

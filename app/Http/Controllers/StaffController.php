@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Branch;
 use App\Models\Exam;
 use App\Models\Mark;
@@ -41,7 +42,7 @@ class StaffController extends Controller
     $mark->semester = $data['semester'];
     $mark->branch = $data['branch'];
     $mark->regno = $data['regno'];
-    $mark->exam = $data['semester'];
+    $mark->exam = $data['exam'];
     $mark->mark1 = $data['mark1'];
     $mark->mark2 = $data['mark2'];
     $mark->mark3 = $data['mark3'];
@@ -56,6 +57,10 @@ class StaffController extends Controller
       dump('Error');
     }
   }
+
+
+
+
 
   public function show($id)
   {
@@ -95,4 +100,44 @@ class StaffController extends Controller
     $students = User::where('role', 'student')->get();
     return view('staff.liststudents')->with(compact('students'));
   }
+
+
+
+  public function attendanceGet()
+    {
+        $branches = Branch::get();
+        //$subjects = Subject::get();
+        return view('staff.firstattendance')->with(compact('branches'));
+    }
+
+    public function attendancePost(Request $request){
+        $semester = $request->input('semester');
+        $branch = $request->input('branch');
+
+        $registers = Mark::where('semester', $semester)->where('branch', $branch)->get();
+        return view('staff.secondattendance',['semester'=>$semester,'branch'=> $branch])->with(compact('registers'));
+    }
+
+    public function storeattendance(Request $request)
+    {
+        $attendance = new Attendance();
+        $attendance->semester = $request->input('semester');
+        $attendance->branch = $request->input('branch');
+        $attendance->subject = $request->input('date');
+        $attendance->exam = $request->input('regno');
+        $attendance->exam = $request->input('status');
+
+        $success = $attendance->save();
+        if($success)
+        {
+            $message = 'successfully updated';
+            return redirect()->intended('./firstattendance')->with(compact('message'));
+        }
+
+        else
+        {
+            return "error";
+        }
+    }
+
 }

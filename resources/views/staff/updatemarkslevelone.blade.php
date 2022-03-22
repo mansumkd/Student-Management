@@ -1,5 +1,7 @@
 @extends('layouts.staff')
 @section('update-marks-level-one')
+
+
 <div class="container">
   <div class="row justify-content-center mt-5 p-5">
       <div class="card" style="width: 25rem; height: 14rem;">
@@ -38,5 +40,5 @@
             </div>
       </div>
   </div>
-    
+
 @endsection

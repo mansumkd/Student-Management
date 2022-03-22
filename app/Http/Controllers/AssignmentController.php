@@ -15,6 +15,7 @@ class AssignmentController extends Controller
          $branches = Branch::get();
          $subjects = Subject::get();
         return view('staff.firstaddpage')->with(compact('branches','subjects'));
+
     }
     public function firstAssignmentPost(Request $request)
     {

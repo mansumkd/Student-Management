@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Mark;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -54,4 +57,6 @@ class ParentController extends Controller
             dump("Error");
         }
     }
+
+
 }
