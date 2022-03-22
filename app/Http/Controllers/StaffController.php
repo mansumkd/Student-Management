@@ -36,9 +36,6 @@ class StaffController extends Controller
   public function updateMarksfinal(Request $request)
   {
     $data = $request->all();
-    $count = count($data);
-    dump($data);
-    dump($count-5);
     $mark = new Mark();
     $mark->semester = $data['semester'];
     $mark->branch = $data['branch'];
@@ -54,7 +51,7 @@ class StaffController extends Controller
 
     $success = $mark->save();
     if ($success) {
-      dump('Data Update success');
+      return redirect()->intended('/update-marks-level-one')->with(['message'=>'mark uploaded successfully']);
     } else {
       dump('Error');
     }

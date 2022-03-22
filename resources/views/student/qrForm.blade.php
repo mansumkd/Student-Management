@@ -57,7 +57,7 @@
                     <form method="POST" action="">
                          <div class="button">
                             <button type="button" class="btn btn-primary" style="width: 180px;">
-                                <a href="{{route('/show-markfirst')}}"class="text-white text-decoration-none" type="submit">
+                                <a href="/show-markfirst?branch={{$student->branch}}&id={{$student->id}}"class="text-white text-decoration-none" type="submit">
                                     Show Mark
                                 </a>
                             </button>
@@ -67,7 +67,7 @@
                 <div class="col-lg-4 ms-5">
                     <div class="button">
                         <button type="button" class="btn btn-primary" style="width: 180px;">
-                            <a href="/qrForm/{{$student->id}}" class="text-white text-decoration-none">
+                            <a href="/resume-download/{{$student->id}}" class="text-white text-decoration-none">
                                 Download-Resume
                             </a>
                         </button>

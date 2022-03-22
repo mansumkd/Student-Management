@@ -34,9 +34,18 @@
 
 
                   </form>
+                  
+                      
+                 
+
               </div>
             </div>
       </div>
+      @if (session()->has('message'))
+      <div class="alert alert-success">
+       <h6 class="text-center">{{session()->get('message')}}</h6> 
+      </div>
+      @endif 
   </div>
     
 @endsection

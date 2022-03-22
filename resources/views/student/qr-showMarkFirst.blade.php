@@ -13,12 +13,15 @@
         <div class="row justify-content-center mt-2 p-5">
             <div class="card mt-5" style="width: 30rem; height: 15rem;">
                 <div class="card-body" >
-                    <form method="POST" action="{{route('/show-markfirst')}}" class="mt-4">
+                    <form method="POST" action="{{route('/show-markfirst/{id}',$id)}}" class="mt-4">
                         @csrf
                         <div class="mb-3">
 
                             <div class="mb-3">
-
+                                 
+                           
+                                <input value="{{$branch}}" name="branch">
+                               
                                 <select class="form-select form-select-lg" name="semester">
                                     <option selected>Choose Semester</option>
                                     <option value="1">1</option>
@@ -30,12 +33,7 @@
                                 </select>
 
                             </div>
-                            <select class="form-select form-select-lg" name="branch">
-                                <option selected>Select branch</option>
-                                @foreach ($branches as $branch)
-                                    <option value="{{$branch->branch}}">{{$branch->branch}}</option>
-                                @endforeach
-                            </select>
+                            
 
 
                             <div class="row justify-content-center">

@@ -98,7 +98,7 @@ Route::get('/qrform/{id}',[StudentController::class,'qrform'])->name('qrForm');
 Route::get('/resume-download/{id}',[StudentController::class,'resumeDownload'])->name('/resume-download/{id}');
 
 Route::get('/show-markfirst',[StudentController::class,'showMarkfirst'])->name('/show-markfirst');
-Route::post('/show-markfirst',[StudentController::class,'showMarkpost'])->name('/show-markfirst');
+Route::post('/show-markfirst{id}',[StudentController::class,'showMarkpost'])->name('/show-markfirst/{id}');
 Route::get('/show-mark',[StudentController::class,'showMark'])->name('/show-mark');
 
 

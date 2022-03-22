@@ -10,6 +10,9 @@
 
 </head>
 <body>
+    
+      
+      
     <center>
         <div class="container mt-4" >
             <div class="row w-80 justify-content-center " >
@@ -18,8 +21,8 @@
                     <table class="table table-striped table-hover border border-dark">
                         <thead style="font-family: var(--bs-body-font-family);" class="fs-5 ">
                             <tr>
-                                <th >Name: {{auth()->user()->name}}</th>
-                                <th >Regester Number: {{auth()->user()->regno}}</th>
+                                <th >Name:{{$student->name}} </th>
+                                <th >Regester Number: {{$student->regno}}</th>
                                 <th >Semester: {{$semester}}</th>
                                 <th class="text-center" colspan="2">Exam: {{$mark->exam}}</th>
                             </tr>

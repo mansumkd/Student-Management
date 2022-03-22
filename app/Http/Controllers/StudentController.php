@@ -73,7 +73,7 @@ class StudentController extends Controller
     {
         $validatedData = $request->validate(['file' => 'required|mimes:csv,txt,xlx,xls,pdf,doc|max:2048',]);
             $name = $request->file('file')->getClientOriginalName();
-            $path = $request->file('file')->store('public/Resume/');
+            $path = $request->file('file')->store('public/Resume');
                 $save = new Resume();
                 $save->studentId = auth()->user()->id;
                 $save->name = $name;
@@ -114,20 +114,22 @@ class StudentController extends Controller
         return response()->download($filePath);
     }
 
-    public function showMarkfirst()
+    public function showMarkfirst(Request $request)
     {
-        $branches = Branch::all();
-        return view('student.qr-showMarkFirst')->with(compact('branches'));
+        $branch = $request->query('branch');
+        $id = $request->query('id');
+        return view('student.qr-showMarkFirst',['branch'=>$branch,'id'=>$id]);
     }
 
-    public function showMarkpost(Request $request)
-    {
+    public function showMarkpost(Request $request,$id)
+    {   
         $semester = $request->input('semester');
-        $branches = $request->input('branch');
-        $subjects = Subject::where('semester',$semester)->where('branch',$branches)->get();
-        $register=auth()->user()->regno;
-        $marks=Mark::where('semester',$semester)->where('branch',$branches)->where('regno', $register)->get();
-        return view('student.qr-showMark',['semester'=>$semester,'branch'=>$branches])->with(compact('subjects','marks'));
+        $branch = $request->input('branch');
+        $subjects = Subject::where('semester',$semester)->where('branch',$branch)->get();
+        $student = User::where('id',$id)->first();
+        $regno = $student->regno; 
+        $marks=Mark::where('semester',$semester)->where('branch',$branch)->where('regno', $regno)->get();
+        return view('student.qr-showMark',['semester'=>$semester,'branch'=>$branch,'student'=>$student])->with(compact('subjects','marks'));
     }
 
 }
