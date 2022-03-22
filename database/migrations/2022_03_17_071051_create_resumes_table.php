@@ -15,8 +15,8 @@ class CreateResumesTable extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('studentId');
+            $table->string('name');
             $table->string('path');
             $table->timestamps();
         });

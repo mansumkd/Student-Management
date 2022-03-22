@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $branchs = Branch::get();
         return view('admin.register')->with(compact('branchs'));
     }
 
-    public function createUser(Request $request){
+    public function createUser(Request $request)
+    {
 
        $user = new User();
        $user->name = $request->input('name');
@@ -26,12 +29,33 @@ class CreateUserController extends Controller
        $user->branch =$request->input('branch');
 
        $success = $user->save();
-       if($success){
+       if($success)
+       {
            $message = 'Succesffully Created..';
            return redirect()->back()->with('message',$message);
        }
-       
-
     }
+
+    public function addSubjectget()
+    {
+        $branchs = Branch::get();
+        return view('admin.add-subjects')->with(compact('branchs'));
+    }
+
+    public function addSubjectPost(Request $request)
+    {
+       $subject = new Subject();
+       $subject->semester = $request->input('semester');
+       $subject->branch =$request->input('branch');
+       $subject->name = $request->input('subject');
+       $success = $subject->save();
+       if($success)
+       {
+           $message = 'Added Succesffully..';
+           return redirect()->back()->with('message',$message);
+       }
+    }
+
+
 }
 
