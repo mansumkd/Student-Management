@@ -24,16 +24,16 @@
                    </div>
 
                        <div class="mb-3">
-                           @foreach ($registers as $key => $register)
-                           <h6>{{ $register->regno }}</h6>
+                        <select class="form-select form-select-lg" name="regno">
+                            <option>Select Register Number</option>
+                            @foreach ($registers as $key => $register)
+                            <option value="{{ $register->regno }}">{{ $register->regno }}</option>>
+                            @endforeach
+                          </select>
 
-                            <select class="form-select form-select-lg" name="status">
-                                <option>Select status</option>
-                                <option value="attended">attended</option>
-                                <option value="skipped">skipped</option>
-                            </select>
+                        <input type="text" name="status" class="form-control mt-3" placeholder="Attendance Percentage">
 
-                           @endforeach
+
                        </div>
 
                   <div class="row justify-content-center mt-2">

@@ -50,6 +50,14 @@
                     </form>
                 </div>
               </div>
+
+              @if (session()->has('message'))
+              <div class="alert alert-success mt-3 text-center">
+                  {{session()->get('message')}}
+              </div>
+          @endif
+
+
         </div>
     </div>
     </body>

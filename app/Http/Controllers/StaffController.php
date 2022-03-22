@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Branch;
 use App\Models\Exam;
 use App\Models\Mark;
@@ -117,15 +118,15 @@ class StaffController extends Controller
         $attendance = new Attendance();
         $attendance->semester = $request->input('semester');
         $attendance->branch = $request->input('branch');
-        $attendance->subject = $request->input('date');
-        $attendance->exam = $request->input('regno');
-        $attendance->exam = $request->input('status');
+        $attendance->date = $request->input('date');
+        $attendance->regno = $request->input('regno');
+        $attendance->status = $request->input('status');
 
         $success = $attendance->save();
         if($success)
         {
             $message = 'successfully updated';
-            return redirect()->intended('./firstattendance')->with(compact('message'));
+            return redirect()->intended('firstassignmentlist')->with(compact('message'));
         }
 
         else

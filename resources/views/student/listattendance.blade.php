@@ -16,14 +16,14 @@
 <div class="container" >
     <div class="row">
 
-            <table id="example" class="table table-striped table-bordered">
+            <table id="example" class="table table-bordered">
                 <thead>
-                    <tr style=" border-right:1px solid white; text-align:center">
-                        <th style="text-align: center">Register Number: {{ auth()->user()->regno }}</th>
+                    <tr>
+                        <th scope="col" colspan="2" class="text-center">Register Number: {{ auth()->user()->regno }}</th>
                     </tr>
                     <tr>
-                        <th style="width: 100px">Date</th>
-                        <th style="width: 100px">Attendance</th>
+                        <th scope="col" style="width: 100px;">Date</th>
+                        <th scope="col" style="width: 100px;">Monthly Attendance Percentage</th>
                     </tr>
                 </thead>
 
